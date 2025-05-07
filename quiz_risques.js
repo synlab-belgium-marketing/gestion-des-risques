@@ -1,0 +1,121 @@
+let quizCompleted = false; // Indicateur de complétion
+
+const quizData = [
+
+    {
+        question: "1. Laquelle de ces méthodes n’est pas utilisée lors de l’identification d’un risque ?",
+        a: "Approche par processus",
+        b: "Méthode des 5 M",
+        c: "Méthode des 5 pourquoi",
+        d: "Méthode des 5 S",
+        correct: ["d"]
+    },
+
+ {
+	question: "2. Quelles informations retrouve-t-on au niveau d’un risque identifié ?",
+        a: "Code risque",
+        b: "Description",
+        c: "Moyen mis en place",
+        d: "Indicateur spécifique",
+        e: "Personnes responsables de la surveillance",
+        correct: ["a", "b", "c", "d"]
+},
+
+ {
+	question: "3. Par quel moyen peut-on accéder à la liste complète des risques identifiés (SPE-SHY-009) ? ",
+        a: "Teams",
+        b: "Disque W",
+        c: "Intranet",
+        d: "Kalilab",
+        e: "Bureau de la cellule qualité",
+        correct: ["a"]
+},
+
+ {
+	question: "4. Sélectionnez les affirmations <b> incorrectes </b> parmi les suivantes : ",
+a: "La criticité d’un risque prend en compte la gravité du risque et la fréquence d’apparition des évènements.", 
+b: "La criticité d’un risque prend uniquement en compte la fréquence d’apparition des évènements.", 
+c: "Un évènement / incident qui aboutit à un arrêt de la routine / fermeture du poste est catégorisé avec une gravité de niveau 3.", 
+d: "Le niveau de fréquence est identique quel que soit le risque identifié. Exemple : 1000 TMANCITB (Tube citraté manquant) aura le même niveau de fréquence que 1000 5ERPB (Erreur patients)",
+
+        correct: ["b", "d"]
+},
+
+ {
+	question: "5. Quelles plateformes permettent le recensement d'un évènement survenu par le biais d’un risque non maitrisé ? ",
+a: "Molis [pour les non-conformités liées au dossier du patient (prélèvement, encodage, patient, résultat, facturation)]", 
+b: "Disque W [pour les fiches d’incident : incident MAJEUR survenu lors d’une routine ayant un impact sur les résultats]", 
+c: "Fichier Teams [pour les défaillances au sein d’un service (fiches d’écart) mises en évidence lors des audits internes]",
+d: "PV de réunion de service",
+
+        correct: ["a", "b", "c"]
+},
+
+ {
+	question: "6. Sélectionnez les affirmations correctes :",
+a: "Le reporting des non-conformités liées au dossier du patient (prélèvement, encodage, patient, résultat, facturation) est de la responsabilité de tous les acteurs ayant participé à ce dossier.", 
+b: "L’attribution de code risque au niveau du reporting des fiches d’incidence est du ressort du responsable de service et/ou référent qualité.", 
+c: "L’attribution de code risque au niveau du reporting des fiches d’incidence est du ressort de la cellule qualité.",
+d: "L’attribution de code risque au niveau du reporting des fiches d'écart est du ressort de l’auditeur interne du service.", 
+
+        correct: ["a", "b", "c"]
+},
+
+ {
+	question: "7. Sélectionnez les affirmations correctes :",
+a: "La surveillance des risques se manifestant par des incidents ou fiches d’écart d’audit interne est réalisée tous les 3 mois avant la réunion qualité.", 
+b: "La surveillance des risques se manifestant par des non-conformités liées au dossier du patient est réalisée tous les 3 mois avant la réunion qualité.", 
+c: "Un risque ayant une criticité élevée (5 ou 6) doit systématiquement faire l’objet d’une action afin de diminuer le risque.",
+d: "Un risque ayant une criticité augmentée par rapport à la surveillance précédente doit faire l’objet d’une action correctrice afin de réduire le risque.",  
+
+
+        correct: ["b", "d"]
+},
+
+];
+
+const quiz = document.getElementById('quiz');
+const feedback = document.getElementById('feedback');
+const submitBtn = document.querySelector('.submit-btn');
+
+let currentQuiz = 0;
+let score = 0;
+
+loadQuiz();
+
+function loadQuiz() {
+    const currentQuizData = quizData[currentQuiz];
+    quiz.innerHTML = `
+        <div class="question">${currentQuizData.question}</div>
+        <ul class="options">
+            ${currentQuizData.a ? `<li><input type="checkbox" name="answer" value="a"> ${currentQuizData.a}</li>` : ''}
+            ${currentQuizData.b ? `<li><input type="checkbox" name="answer" value="b"> ${currentQuizData.b}</li>` : ''}
+            ${currentQuizData.c ? `<li><input type="checkbox" name="answer" value="c"> ${currentQuizData.c}</li>` : ''}
+            ${currentQuizData.d ? `<li><input type="checkbox" name="answer" value="d"> ${currentQuizData.d}</li>` : ''}
+            ${currentQuizData.e ? `<li><input type="checkbox" name="answer" value="e"> ${currentQuizData.e}</li>` : ''}
+        </ul>
+    `;
+    feedback.innerHTML = '';
+}
+
+function submitQuiz() {
+    const answers = document.querySelectorAll('input[name="answer"]:checked');
+    const selectedAnswers = Array.from(answers).map(answer => answer.value);
+    const correctAnswers = quizData[currentQuiz].correct;
+
+    if (selectedAnswers.length === correctAnswers.length && selectedAnswers.every(answer => correctAnswers.includes(answer))) {
+        score++;
+        currentQuiz++;
+        feedback.innerHTML = ''; // Réinitialiser le feedback en cas de réponse correcte
+        if (currentQuiz < quizData.length) {
+            loadQuiz();
+        } else {
+            quiz.innerHTML = `Félicitations ! Vous avez terminé cette formation. <br> Nous vous remercions pour votre engagement et votre participation.`;
+            submitBtn.style.display = 'none';
+        }
+    } else {
+        feedback.innerHTML = 'Réponse incorrecte, veuillez réessayer.';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadQuiz);
