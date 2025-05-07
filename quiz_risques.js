@@ -12,7 +12,7 @@ const quizData = [
     },
 
  {
-	question: "2. Quelles informations retrouve-t-on au niveau d’un risque identifié ?",
+	question: "2. Quelles informations retrouve-t-on au niveau d’un risque identifié ? <br> <br> <span style='font-size:14px;'>Sélectionnez toutes les réponses correctes.</span>",
         a: "Code risque",
         b: "Description",
         c: "Moyen mis en place",
@@ -32,7 +32,7 @@ const quizData = [
 },
 
  {
-	question: "4. Sélectionnez les affirmations <b> incorrectes </b> parmi les suivantes : ",
+	question: "4. Sélectionnez toutes les affirmations <b> incorrectes </b> parmi les suivantes : ",
 a: "La criticité d’un risque prend en compte la gravité du risque et la fréquence d’apparition des évènements.", 
 b: "La criticité d’un risque prend uniquement en compte la fréquence d’apparition des évènements.", 
 c: "Un évènement / incident qui aboutit à un arrêt de la routine / fermeture du poste est catégorisé avec une gravité de niveau 3.", 
@@ -42,7 +42,7 @@ d: "Le niveau de fréquence est identique quel que soit le risque identifié. Ex
 },
 
  {
-	question: "5. Quelles plateformes permettent le recensement d'un évènement survenu par le biais d’un risque non maitrisé ? ",
+	question: "5. Quelles plateformes permettent le recensement d'un évènement survenu par le biais d’un risque non maitrisé ? <br> <br> <span style='font-size:14px;'>Sélectionnez toutes les réponses correctes.</span> ",
 a: "Molis [pour les non-conformités liées au dossier du patient (prélèvement, encodage, patient, résultat, facturation)]", 
 b: "Disque W [pour les fiches d’incident : incident MAJEUR survenu lors d’une routine ayant un impact sur les résultats]", 
 c: "Fichier Teams [pour les défaillances au sein d’un service (fiches d’écart) mises en évidence lors des audits internes]",
@@ -52,17 +52,17 @@ d: "PV de réunion de service",
 },
 
  {
-	question: "6. Sélectionnez les affirmations correctes :",
+	question: "6. Sélectionnez toutes les affirmations correctes :",
 a: "Le reporting des non-conformités liées au dossier du patient (prélèvement, encodage, patient, résultat, facturation) est de la responsabilité de tous les acteurs ayant participé à ce dossier.", 
 b: "L’attribution de code risque au niveau du reporting des fiches d’incidence est du ressort du responsable de service et/ou référent qualité.", 
 c: "L’attribution de code risque au niveau du reporting des fiches d’incidence est du ressort de la cellule qualité.",
 d: "L’attribution de code risque au niveau du reporting des fiches d'écart est du ressort de l’auditeur interne du service.", 
 
-        correct: ["a", "b", "c"]
+        correct: ["a", "b", "d"]
 },
 
  {
-	question: "7. Sélectionnez les affirmations correctes :",
+	question: "7. Sélectionnez toutes les affirmations correctes :",
 a: "La surveillance des risques se manifestant par des incidents ou fiches d’écart d’audit interne est réalisée tous les 3 mois avant la réunion qualité.", 
 b: "La surveillance des risques se manifestant par des non-conformités liées au dossier du patient est réalisée tous les 3 mois avant la réunion qualité.", 
 c: "Un risque ayant une criticité élevée (5 ou 6) doit systématiquement faire l’objet d’une action afin de diminuer le risque.",
