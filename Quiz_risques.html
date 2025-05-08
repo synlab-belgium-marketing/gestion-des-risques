@@ -15,12 +15,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
+	vertical-align: middle;
             height: 100vh;
-line-height: 1.1;
+            line-height: 1.5;
         }
         .container {
             width: 1080px;
-            height: 920px;
+            height: auto;
             margin: auto;
             overflow: hidden;
             display: none; /* Masquer le contenu initialement */
@@ -35,6 +36,7 @@ line-height: 1.1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+vertical-align: center; 
         }
 
         .question {
@@ -44,18 +46,19 @@ line-height: 1.1;
             display: inline-block;
             width: 100%;
             word-wrap: break-word;
-	margin-bottom: 5px; 
+            margin-bottom: auto; 
         }
         .options {
             list-style-type: none;
             padding: 0;
-	margin: 0;
+            margin: 0;
+margin-bottom: auto;
         }
         .options li {
-            margin: auto;
+            margin: 15px;
             color: #003765; /* SYNLAB Darkblue */
             display: flex;
-            align-items: flex-start;
+            align-items: center;
         }
         .options li label {
             display: flex;
@@ -64,12 +67,12 @@ line-height: 1.1;
         .options li input[type="radio"],
         .options li input[type="checkbox"] {
             margin-right: 10px;
-            align-self: flex-start;
+            align-self: center;
         }
         .options li span {
             display: inline-block;
-            vertical-align: top;
-            line-height: 1.5;
+            vertical-align: middle;
+            line-height: 2;
             text-align: justify;
         }
         .submit-btn {
@@ -81,7 +84,7 @@ line-height: 1.1;
             border-radius: 5px;
             transition: background 0.3s;
             align-self: center;
-	font-size: 1rem; /* Taille du texte */
+            font-size: 1rem; /* Taille du texte */
         }
         .submit-btn:hover {
             background: #002244;
@@ -99,8 +102,10 @@ line-height: 1.1;
 <body>
     <div class="container" id="quiz-container">
         <div class="quiz-container">
-                      <div id="quiz"></div>
+            <div id="quiz"></div>
             <button class="submit-btn" onclick="submitQuiz()">Je valide ma réponse</button>
+            <button class="submit-btn" id="retry-btn" style="display: none; background: #be1622;" onclick="restartQuiz()">Recommencer le quiz</button>
+<button class="submit-btn" id="finish" style="display: none; background: #68971c;" onclick="fermerOnglet()">Terminer la formation</button>
             <div id="feedback" class="feedback"></div>
         </div>
     </div>
@@ -108,7 +113,7 @@ line-height: 1.1;
         document.addEventListener('DOMContentLoaded', function() {
             Swal.fire({
                 title: 'Place au quiz !',
-                html: 'Cliquez sur "Je suis prêt" pour commencer.',
+                html: 'Cliquez sur « Je suis prêt » pour commencer.',
                 showConfirmButton: true,
                 confirmButtonText: 'Je suis prêt',
                 confirmButtonColor: '#003765',
@@ -119,24 +124,21 @@ line-height: 1.1;
                     loadQuizScript();
                 }
             });
- 
 
-
-// Empêcher la fermeture de la fenêtre
-            window.addEventListener('beforeunload', function (e) {
-                if (!quizCompleted) {
-                    const message = "Veuillez terminer le quiz pour finir cette formation.";
-                    e.preventDefault();
-                    e.returnValue = message; // Pour certains navigateurs
-                    return message; // Pour d'autres navigateurs
-                }
-            });
-        });
-
+            // Empêcher la fermeture de la fenêtre
+            window.addEventListener('beforeunload', function (e) {
+                if (!quizCompleted) {
+                    const message = "Veuillez terminer le quiz pour finir cette formation.";
+                    e.preventDefault();
+                    e.returnValue = message; // Pour certains navigateurs
+                    return message; // Pour d'autres navigateurs
+                }
+            });
+        });
 
         function loadQuizScript() {
             const script = document.createElement('script');
-            script.src = 'quiz_risques.js';
+            script.src = 'Test_3.js';
             script.onload = startQuiz;
             document.head.appendChild(script);
         }
