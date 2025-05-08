@@ -12,7 +12,7 @@ const quizData = [
     },
 
  {
-	question: "2. Quelles informations retrouve-t-on au niveau d’un risque identifié ? <br> <br> <span style='font-size:14px;'>Sélectionnez toutes les réponses correctes.</span>",
+	question: "2. Quelles informations retrouve-t-on au niveau d’un risque identifié ? <br> <span style='font-size:14px;'>Sélectionnez toutes les réponses correctes.</span>",
         a: "Code risque",
         b: "Description",
         c: "Moyen mis en place",
@@ -36,13 +36,13 @@ const quizData = [
 a: "La criticité d’un risque prend en compte la gravité du risque et la fréquence d’apparition des évènements.", 
 b: "La criticité d’un risque prend uniquement en compte la fréquence d’apparition des évènements.", 
 c: "Un évènement / incident qui aboutit à un arrêt de la routine / fermeture du poste est catégorisé avec une gravité de niveau 3.", 
-d: "Le niveau de fréquence est identique quel que soit le risque identifié. Exemple : 1000 TMANCITB (Tube citraté manquant) aura le même niveau de fréquence que 1000 5ERPB (Erreur patients)",
+d: "Le niveau de fréquence est identique quel que soit le risque identifié. <br> Exemple : 1000 TMANCITB (Tube citraté manquant) aura le même niveau de fréquence que 1000 5ERPB (Erreur patients)",
 
         correct: ["b", "d"]
 },
 
  {
-	question: "5. Quelles plateformes permettent le recensement d'un évènement survenu par le biais d’un risque non maitrisé ? <br> <br> <span style='font-size:14px;'>Sélectionnez toutes les réponses correctes.</span> ",
+	question: "5. Quelles plateformes permettent le recensement d'un évènement survenu par le biais d’un risque non maitrisé ? <br> <span style='font-size:14px;'>Sélectionnez toutes les réponses correctes.</span> ",
 a: "Molis [pour les non-conformités liées au dossier du patient (prélèvement, encodage, patient, résultat, facturation)]", 
 b: "Disque W [pour les fiches d’incident : incident MAJEUR survenu lors d’une routine ayant un impact sur les résultats]", 
 c: "Fichier Teams [pour les défaillances au sein d’un service (fiches d’écart) mises en évidence lors des audits internes]",
@@ -53,8 +53,8 @@ d: "PV de réunion de service",
 
  {
 	question: "6. Sélectionnez toutes les affirmations correctes :",
-a: "Le reporting des non-conformités liées au dossier du patient (prélèvement, encodage, patient, résultat, facturation) est de la responsabilité de tous les acteurs ayant participé à ce dossier.", 
-b: "L’attribution de code risque au niveau du reporting des fiches d’incidence est du ressort du responsable de service et/ou référent qualité.", 
+a: "Le reporting des non-conformités liées au dossier du patient (prélèvement, encodage, patient, résultat, facturation) <br> est de la responsabilité de tous les acteurs ayant participé à ce dossier.", 
+b: "L’attribution de code risque au niveau du reporting des fiches d’incidence est du ressort <br> du responsable de service et/ou référent qualité.", 
 c: "L’attribution de code risque au niveau du reporting des fiches d’incidence est du ressort de la cellule qualité.",
 d: "L’attribution de code risque au niveau du reporting des fiches d'écart est du ressort de l’auditeur interne du service.", 
 
@@ -84,38 +84,84 @@ let score = 0;
 loadQuiz();
 
 function loadQuiz() {
-    const currentQuizData = quizData[currentQuiz];
-    quiz.innerHTML = `
-        <div class="question">${currentQuizData.question}</div>
-        <ul class="options">
-            ${currentQuizData.a ? `<li><input type="checkbox" name="answer" value="a"> ${currentQuizData.a}</li>` : ''}
-            ${currentQuizData.b ? `<li><input type="checkbox" name="answer" value="b"> ${currentQuizData.b}</li>` : ''}
-            ${currentQuizData.c ? `<li><input type="checkbox" name="answer" value="c"> ${currentQuizData.c}</li>` : ''}
-            ${currentQuizData.d ? `<li><input type="checkbox" name="answer" value="d"> ${currentQuizData.d}</li>` : ''}
-            ${currentQuizData.e ? `<li><input type="checkbox" name="answer" value="e"> ${currentQuizData.e}</li>` : ''}
-        </ul>
-    `;
-    feedback.innerHTML = '';
+    const currentQuizData = quizData[currentQuiz];
+    quiz.innerHTML = `
+        <div class="question">${currentQuizData.question}</div>
+        <ul class="options">
+            ${currentQuizData.a ? `<li><input type="checkbox" name="answer" value="a"> ${currentQuizData.a}</li>` : ''}
+            ${currentQuizData.b ? `<li><input type="checkbox" name="answer" value="b"> ${currentQuizData.b}</li>` : ''}
+            ${currentQuizData.c ? `<li><input type="checkbox" name="answer" value="c"> ${currentQuizData.c}</li>` : ''}
+            ${currentQuizData.d ? `<li><input type="checkbox" name="answer" value="d"> ${currentQuizData.d}</li>` : ''}
+            ${currentQuizData.e ? `<li><input type="checkbox" name="answer" value="e"> ${currentQuizData.e}</li>` : ''}
+        </ul>
+    `;
+    feedback.innerHTML = '';
 }
+
+
 
 function submitQuiz() {
-    const answers = document.querySelectorAll('input[name="answer"]:checked');
-    const selectedAnswers = Array.from(answers).map(answer => answer.value);
-    const correctAnswers = quizData[currentQuiz].correct;
+    const answers = document.querySelectorAll('input[name="answer"]:checked');
+    const selectedAnswers = Array.from(answers).map(answer => answer.value);
+    const correctAnswers = quizData[currentQuiz].correct;
 
-    if (selectedAnswers.length === correctAnswers.length && selectedAnswers.every(answer => correctAnswers.includes(answer))) {
-        score++;
-        currentQuiz++;
-        feedback.innerHTML = ''; // Réinitialiser le feedback en cas de réponse correcte
-        if (currentQuiz < quizData.length) {
-            loadQuiz();
-        } else {
-            quiz.innerHTML = `Félicitations ! Vous avez terminé cette formation. <br> Nous vous remercions pour votre engagement et votre participation.`;
-            submitBtn.style.display = 'none';
-        }
-    } else {
-        feedback.innerHTML = 'Réponse incorrecte, veuillez réessayer.';
-    }
+    // Calculer le score pour chaque réponse correcte cochée
+    selectedAnswers.forEach(answer => {
+        if (correctAnswers.includes(answer)) {
+            score++;
+        }
+	else {
+            score -= 0.25;
+        }
+
+    });
+
+    currentQuiz++;
+    feedback.innerHTML = ''; // Réinitialiser le feedback en cas de réponse correcte
+
+    if (currentQuiz < quizData.length) {
+        loadQuiz();
+    } else {
+        if (score >= 13) {
+            quiz.innerHTML = `Félicitations ! Vous avez terminé cette formation avec une score de ${score}/16 (plusieurs points possibles par question). <br> Nous vous remercions pour votre engagement et votre participation. <br>`;
+document.getElementById('finish').style.display = 'block';
+        } else {
+            quiz.innerHTML = ` Vous avez obtenu ${score} points (plusieurs points possibles par question). <br> Un score de minimum 13/16 est requis pour réussir cette formation. <br> Veuillez recommencer le questionnaire. <br>`;
+            document.getElementById('retry-btn').style.display = 'block';
+        }
+        submitBtn.style.display = 'none';
+    }
 }
 
-document.addEventListener('DOMContentLoaded', loadQuiz);
+
+function restartQuiz() {
+    currentQuiz = 0;
+    score = 0;
+    loadQuiz();
+    submitBtn.style.display = 'block';
+    document.getElementById('retry-btn').style.display = 'none';
+}
+
+function fermerOnglet() {
+    window.close();
+    document.getElementById('finish').style.display = 'none';
+}
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    Swal.fire({
+        title: 'Place au quiz !',
+        html: 'Cliquez sur « Je suis prêt » pour commencer.',
+        showConfirmButton: true,
+        confirmButtonText: 'Je suis prêt',
+        confirmButtonColor: '#003765',
+        allowOutsideClick: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('quiz-container').style.display = 'block'; // Afficher le contenu
+            loadQuiz();
+        }
+    });
+
+});
